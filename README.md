@@ -103,13 +103,16 @@ npx expo start
 
 This monorepo uses Git **subtrees** to integrate separate frontend and backend repositories cleanly:
 
+[Frontend Repo](https://github.com/syed-mohd-fasih/spam-o-tron)
+[Backend Repo](https://github.com/syed-mohd-fasih/SecureChat)
+
 ```bash
 # Add frontend subtree
-git remote add frontend-origin https://github.com/your-username/frontend-repo.git
+git remote add frontend-origin git@github.com:syed-mohd-fasih/spam-o-tron.git
 git subtree add --prefix=frontend frontend-origin main --squash
 
 # Add backend subtree
-git remote add backend-origin https://github.com/your-username/backend-repo.git
+git remote add backend-origin git@github.com:syed-mohd-fasih/SecureChat.git
 git subtree add --prefix=backend backend-origin main --squash
 ```
 
