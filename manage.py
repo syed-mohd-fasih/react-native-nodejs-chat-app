@@ -2,16 +2,66 @@ import subprocess
 import os
 import sys
 import platform
+import shutil
 
 FRONTEND_DIR = "frontend"
 BACKEND_DIR = "backend"
 
 def install_all():
-    print("Installing frontend dependencies...")
-    subprocess.run(["npm", "install"], cwd=FRONTEND_DIR, shell=True)
+    system = platform.system()
 
-    print("Installing backend dependencies...")
-    subprocess.run(["npm", "install"], cwd=BACKEND_DIR, shell=True)
+    if system == "Windows":
+        print("Installing frontend dependencies...")
+        subprocess.Popen(
+            f'start cmd /k "cd /d {FRONTEND_DIR} && npm install && echo. && echo Press any key to close... && pause >nul && exit"',
+            shell=True
+        )
+
+        print("Installing backend dependencies...")
+        subprocess.Popen(
+            f'start cmd /k "cd /d {BACKEND_DIR} && npm install && echo. && echo Press any key to close... && pause >nul && exit"',
+            shell=True
+        )
+
+    elif system == "Linux":
+        terminal = shutil.which("gnome-terminal") or shutil.which("x-terminal-emulator")
+        if not terminal:
+            print("Error: No suitable terminal emulator found.")
+            return
+
+        subprocess.Popen([
+            terminal,
+            "--",
+            "bash",
+            "-c",
+            f"cd '{FRONTEND_DIR}' && npm install; echo -e '\\nPress any key to close...'; read -n 1; exit"
+        ])
+
+        subprocess.Popen([
+            terminal,
+            "--",
+            "bash",
+            "-c",
+            f"cd '{BACKEND_DIR}' && npm install; echo -e '\\nPress any key to close...'; read -n 1; exit"
+        ])
+
+    elif system == "Darwin":  # macOS
+        subprocess.Popen([
+            "osascript",
+            "-e",
+            f'tell application "Terminal" to do script "cd \\"{FRONTEND_DIR}\\"; npm install; echo \\"\\nPress any key to close...\\"; read -n 1; exit"'
+        ])
+
+        subprocess.Popen([
+            "osascript",
+            "-e",
+            f'tell application "Terminal" to do script "cd \\"{BACKEND_DIR}\\"; npm install; echo \\"\\nPress any key to close...\\"; read -n 1; exit"'
+        ])
+
+    else:
+        print("Unsupported platform...")
+
+    print("Dependencies installation launched in separate terminals.")
 
 def run_all():
     if platform.system() == "Windows":
