@@ -103,8 +103,8 @@ npx expo start
 
 This monorepo uses Git **subtrees** to integrate separate frontend and backend repositories cleanly:
 
-[Frontend Repo](https://github.com/syed-mohd-fasih/spam-o-tron)
-[Backend Repo](https://github.com/syed-mohd-fasih/SecureChat)
+[Frontend Repo (Spam-o-tron)](https://github.com/syed-mohd-fasih/spam-o-tron)  
+[Backend Repo (SecureChat)](https://github.com/syed-mohd-fasih/SecureChat)
 
 ```bash
 # Add frontend subtree
@@ -127,11 +127,9 @@ git subtree pull --prefix=backend backend-origin main --squash
 
 ## 🔐 Features
 
--   🔒 End-to-end encrypted messaging (RSA/AES)
 -   ⚡ Real-time communication via WebSockets
--   👥 Authentication with JWT (or Firebase if used)
--   📁 Image/file sharing (optional)
--   🧠 Typing indicators & message delivery status
+-   👥 Authentication with JWT
+-   🧠 Online statuses
 
 ---
 
@@ -141,9 +139,8 @@ git subtree pull --prefix=backend backend-origin main --squash
 | -------- | ------------------------------ |
 | Frontend | React Native (Expo)            |
 | Backend  | Node.js, Express, WebSocket    |
-| Auth     | JWT / Firebase (if applicable) |
+| Auth     | JWT                            |
 | Database | MongoDB (Cloud/Local)          |
-| Optional | Redis (pub/sub), Socket.IO     |
 
 ---
 
